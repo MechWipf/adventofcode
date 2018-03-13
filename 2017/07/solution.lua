@@ -1,5 +1,5 @@
-package.path = [[D:\Workspace\Projects\adventofcode\libs\?.lua;]] .. package.path
-local utils = require "utils"
+package.path = arg[1] .. "?.lua;" .. package.path
+local utils = require "libs.utils"
 
 local function getTowers ( raw )
   local n = raw:find "->"
@@ -47,13 +47,47 @@ local function main ( lines )
 
   print(last)
 
-  local printed = {}
-  for k, tower in pairs( tree ) do
-    if tree[tower] == last and not printed[tower] then
-      printed[tower] = true
-      print(tower, getWeight(tower, tree, childs, weight))
+  do
+    local last = last
+    local stack = { last }
+    local done = false
+
+    while not done do
+      local dif = {}
+
+      for _, tower in pairs( childs[last] ) do
+        local w = getWeight(tower, tree, childs, weight)
+        if not dif[w] then
+          dif[w] = { t = tower, c = 1 }
+        else
+          dif[w].c = dif[w].c + 1
+        end
+
+        print(tower, w)
+      end
+
+      for _, v in pairs(dif) do
+        if v.c == 1 then
+          last = v.t
+          if not childs[last] then done = true print( last, "no more childs" ) end
+          break
+        end
+      end
+
+      local allEqual = true
+      local _k, _v
+      for k,v in pairs(dif) do
+        if _k then
+          print("cmp", v.t .. ":" .. k, _v.t .. ":" .. _k)
+          if not _k == k then allEqual = false break end
+        end
+        local _k, _v = k, v
+      end
+
+      done = allEqual
+
     end
   end
 end
 
-main( io.lines( select(1, ...) ) )
+main( io.lines "input.txt" )
