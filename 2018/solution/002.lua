@@ -1,6 +1,7 @@
 -- Global Vars
 local io = require "io"
 local utils = require "utils"
+local inputPath = "input/day002/input.txt"
 --
 
 local module = { active = {} }
@@ -59,7 +60,7 @@ end
 function module.sol1 ()
     local allDoubles, allTriplets = 0, 0
 
-    for line in io.lines "input/day2/input.txt" do
+    for line in io.lines( inputPath ) do
         local doubles, triplets = getIDLetterCount( line )
         allDoubles = allDoubles + doubles
         allTriplets = allTriplets + triplets
@@ -87,7 +88,7 @@ end
 
     What letters are common between the two correct box IDs? (In the example above, this is found by removing the differing character from either ID, producing fgij.)
 ]]--
-module.active.sol2 = true
+module.active.sol2 = false
 
 local function testMatch ( fst, snd )
     local count = {}
@@ -117,7 +118,7 @@ end
 
 function module.sol2 ()
     local lines = {}
-    for line in io.lines "input/day2/input.txt" do table.insert( lines, line ) end
+    for line in io.lines( inputPath ) do table.insert( lines, line ) end
     local match = { findMatchingIds( lines ) }
     
     utils.printTable( match )

@@ -1,6 +1,7 @@
 local Days = {
-    DayOne = require "solution.day_one",
-    DayTwo = require "solution.day_two",
+    DayOne   = require "solution.001",
+    DayTwo   = require "solution.002",
+    DayThree = require "solution.003",
 }
 
 

@@ -40,7 +40,7 @@ function module.sol1 ()
     local num
     local frequence = 0
 
-    for v in io.lines "input/day1/input.txt" do
+    for v in io.lines "input/day001/input.txt" do
         action = v:sub( 1, 1 )
         num = v:sub( 2 )
 
@@ -91,7 +91,7 @@ local function findDuplicateFrequency ()
     local lines = {}
     local seenFrequencies = {}
 
-    for line in io.lines "input/day1/input.txt" do table.insert( lines, line ) end
+    for line in io.lines "input/day001/input.txt" do table.insert( lines, line ) end
 
     while true do
         for _, v in pairs(lines) do
